@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram | Login-Signup</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="wrapper">
+
+        <div class="main-content">
+            <div class="header">
+                <div class="head-logo">
+                    <img src="insta_w.png" >
+                </div>
+                <div class="head-content">
+                    Log in to see Photos and Videos from your Friends
+                </div>
+                <div class="head-info">
+                    <input type="text" id="email" placeholder="EMAIL" class="input-1" />
+                    <br>
+                    <input type="password" id="password" placeholder="PASSWORD" class="input-2" required>
+                    <div class="toggle-btn">
+                        <input type="checkbox" id="toggle1" class="input-3">Show password
+                    </div>
+                    <br>
+                    <input type="submit" id="login" value="LOG IN" class="btn">
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="sub-content">
+
+            <div class="bottom">
+                <a href="#">Forgot your Login Details? Get Help Signing in.</a>
+            </div>
+            <div class="or">OR
+            </div>
+            <div class="facebook">
+                <input type="button" class="fb"  value="LOG IN WITH FACEBOOK">
+                <img src="facebook.png" height="10px">
+            </div>
+            <div class="footer">
+                <div class="s-part">
+                    Don't have an account?<a href="signup.html">Sign up</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+<script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics.js";
+    // import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+    import {getDatabase, set, ref, update} from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+    
+    const firebaseConfig = {
+      apiKey: "AIzaSyDBnxfG2muMuI_hEP2VbUUdwI9YLJoW9NA",
+      authDomain: "mini-insta-5f0cc.firebaseapp.com",
+      projectId: "mini-insta-5f0cc",
+      storageBucket: "mini-insta-5f0cc.appspot.com",
+      messagingSenderId: "671504305978",
+      appId: "1:671504305978:web:317f6c4920dc4b9c5b4a03",
+      measurementId: "G-HZ32N4RLL5"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const database  = getDatabase(app);
+    const auth = getAuth();
+
+    login.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    // const formData = new FormData(loginForm);
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+
+    // Retrieve the user data from Firestore based on the entered username
+    const usersCollection = database.collection("users");
+    const querySnapshot = await usersCollection.where("username", "==", username).get();
+  
+
+    if (querySnapshot.empty) {
+      // User not found
+      alert("Invalid credentials. Please try again.");
+    } else {
+      // User found, check password
+      const user = querySnapshot.docs[0].data();
+      if (user.password === password) {
+        // Password is correct, login successful
+        alert("Login successful!");
+        // You can redirect the user to another page or perform other actions
+      } else {
+        // Password is incorrect
+        alert("Invalid credentials. Please try again.");
+      }
+    }
+  });
+
+  //update the login
+login.addEventListener('click', (e) => {
+
+var email = document.getElementById('email').value;
+var password = document.getElementById('password').value;
+signInWithEmailAndPassword(auth, email, password)
+.then((userCredential) => {
+// Signed in 
+const user = userCredential.user;
+const dt = new Date()
+update(ref(database, 'users/' + user.uid),{
+    last_login: dt
+}).then(() => {
+      console.log('Data updated');
+      alert('User logged in !!');
+      window.location.href = "/Home-page/home.html";
+    }).catch((error) => {
+      console.error('Error saving data:', error);
+    });
+})
+.catch((error) => {
+const errorCode = error.code;
+const errorMessage = error.message;
+alert(errorMessage);
+});
+});
+
+
+
+//   password-toggle-btn
+
+const checkbox = document.getElementById("toggle1");
+checkbox.addEventListener("change", function() {
+  if (this.checked) {
+    var x = document.getElementById("password");
+    if (x.type === "password") {
+    x.type = "text";
+    } else {
+    x.type = "password";
+    }
+ }
+  else {
+    var x = document.getElementById("password");
+    if (x.type === "text") {
+    x.type = "password";
+    } else {
+    x.type = "text";
+    }
+  }
+});
+
+
+
+  </script>
+</html>

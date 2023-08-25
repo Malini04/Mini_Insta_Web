@@ -1,0 +1,127 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* background-color: rgb(20, 17, 17); */
+    background-color: #000636;
+    justify-content: center;
+}
+
+#wrapper {
+    /* background-color: antiquewhite; */
+    width: 500px;
+    height: 100%;
+    overflow: auto;
+    border: 0px solid #eee;
+    margin: 8px auto;
+    padding: 10px;
+    font-family: Montserrat;
+    font-weight: 300;
+    font-size: 10px;
+}
+
+.main-content {
+    width: 250px;
+    height: 100%;
+    margin: 8px auto;
+    border: 0px solid #e6e6e6;
+    padding: 30px 40px;
+    padding-top: 10px;
+}
+
+.head-logo{
+    border: 0px solid #e6e6e6;
+    margin-bottom: 10px;
+}
+
+.head-logo img {
+    height: 50px;
+    width: 175px;
+    margin: auto;
+    position: relative;
+    left: 35px;
+}
+
+.head-content {
+    /* background-color: bisque; */
+    width: 200px;
+    box-sizing: border-box;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    left: 26px;
+    margin-bottom: 65px;
+    margin-top: 30px;
+    color: aliceblue;
+    letter-spacing: 1px;
+    font-size: 12px;
+}
+
+/* .input-1,
+.input-2 {
+  width: 100%;
+  height: 35px;
+  margin-bottom: 20px;
+  padding: 8px 8px;
+  border: 0px solid #dbdbdb;
+  box-sizing: border-box;
+  border-radius: 4px;
+  background-color:  #ededed;
+  font-size: 10px;
+} */
+
+.input-1,
+.input-2 {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 8px 8px;
+  border: 0px solid #dbdbdb;
+  box-sizing: border-box;
+  border-radius: 2px;
+  background-color: #2E3989;
+  font-size: 10px;
+  color: aliceblue;
+}
+
+.toggle-btn {
+    width: 100%;
+    margin-bottom: 20px;
+    /* padding: 8px 8px; */
+    border: 0px solid #dbdbdb;
+    box-sizing: border-box;
+    border-radius: 2px;
+    /* background-color: #2E3989; */
+    font-size: 10px;
+    color: aliceblue;
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+
+
+.btn {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #2E3989;
+    background-color: #000636 ;
+    color: aliceblue;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+input:hover {
+    background-color:rgb(186, 158, 121);
+}
+
+input.btn:hover {
+    background-color: rgb(186, 158, 121);
+    font-size: 140%;
+    color: rgb(20, 17, 17);
+    border: 1px solid rgb(139, 136, 136);
+}

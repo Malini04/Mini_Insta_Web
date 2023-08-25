@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram | Login-Signup</title>
+    <link rel="stylesheet" href="signup.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="wrapper">
+        <div class="main-content">
+            <div class="header">
+                <div class="head-logo">
+                    <img src="insta_w.png" >
+                </div>
+                <div class="head-content">
+                    Sign Up to create new account.
+                </div>
+                <div class="head-info" style="color: aliceblue;">
+                    <input type="text" name="username" id="username" placeholder="USERNAME" class="input-1">
+
+                    <input type="email" name="email" id="email" placeholder="EMAIL" class="input-1">
+                    
+                    <input type="password" name = "pswd1" id="password1" placeholder="PASSWORD" class="input-2">
+                    <div class="toggle-btn">
+                        <input type="checkbox" id="toggle1" class="input-3">Show password
+                    </div>
+                    
+                    <input type="password" name = "pswd2" id="password2" placeholder="CONFIRM PASSWORD" class="input-2">
+                    <div class="toggle-btn">
+                        <input type="checkbox" id="toggle2"  class="input-3">Show password
+                    </div>
+
+                    <input type="submit" id="signup" value="SIGN IN" name="signup_submit" class="btn">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- <script src="signup.js"></script> -->
+</body>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics.js";
+    import { getDatabase, set, ref} from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+    import { getFirestore, addDoc, collection, getDocs} from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.1.0/firebase-storage.js';
+    
+    const firebaseConfig = {
+      apiKey: "AIzaSyDBnxfG2muMuI_hEP2VbUUdwI9YLJoW9NA",
+      authDomain: "mini-insta-5f0cc.firebaseapp.com",
+      projectId: "mini-insta-5f0cc",
+      storageBucket: "mini-insta-5f0cc.appspot.com",
+      messagingSenderId: "671504305978",
+      appId: "1:671504305978:web:317f6c4920dc4b9c5b4a03",
+      measurementId: "G-HZ32N4RLL5"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const database  = getDatabase(app);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+//toggle function for show password
+const checkbox = document.getElementById("toggle1");
+
+checkbox.addEventListener("change", function() {
+  if (this.checked) {
+    var x = document.getElementById("password1");
+    if (x.type === "password") {
+    x.type = "text";
+    } else {
+    x.type = "password";
+    }
+ }
+  else {
+    var x = document.getElementById("password1");
+    if (x.type === "text") {
+    x.type = "password";
+    } else {
+    x.type = "text";
+    }
+  }
+});
+
+const checkbox2 = document.getElementById("toggle2");
+
+checkbox2.addEventListener("change", function() {
+  if (this.checked) {
+    var x = document.getElementById("password2");
+    if (x.type === "password") {
+    x.type = "text";
+    } else {
+    x.type = "password";
+    }
+ }
+  else {
+    var x = document.getElementById("password2");
+    if (x.type === "text") {
+    x.type = "password";
+    } else {
+    x.type = "text";
+    }
+  }
+});
+
+
+//sign -up 
+    signup.addEventListener('click', (e)=> {
+
+        var email = document.getElementById('email').value;
+        var password1 = document.getElementById('password1').value;
+        var username = document.getElementById('username').value;
+        var password2 = document.getElementById('password2').value;
+
+        if (password1 !== password2) {
+        // Passwords don't match
+        alert("Passwords do not match. Please try again.");
+        return;
+        }
+
+  createUserWithEmailAndPassword(auth, email, password1)
+  .then((userCredential) => {
+    const user = userCredential.user;
+
+    // Use the modular syntax for setting data in the Realtime Database
+    set(ref(database, 'users/' + user.uid), {
+      username: username,
+      email: email
+    }).then(() => {
+      console.log('Data saved successfully');
+      alert('User has been signed up successfully!');
+     window.location.href = "/Home-page/home.html";
+    }).catch((error) => {
+      console.error('Error saving data:', error);
+    });
+  })
+  .catch((error) => {
+    console.error('Error creating user:', error);
+  });
+
+  const dataEntryDiv = document.querySelector('.head-info');
+  const usernameInput = dataEntryDiv.querySelector('#username');
+  const emailInput = dataEntryDiv.querySelector('#email');
+
+  try {
+    // Add a new document to the "users" collection
+    const docRef = addDoc(collection(db, "users"), {
+      name: usernameInput.value,
+      email: emailInput.value
+    });
+
+    console.log("Document written with ID: ", docRef.id);
+  } catch (error) {
+    console.error("Error adding document: ", error);
+  }
+
+})
+
+// console.log(app);
+  </script>
+
+</html>
