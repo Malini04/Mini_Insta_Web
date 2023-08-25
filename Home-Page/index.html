@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <link rel="stylesheet" href="index.css">
+  <body>
+  <!-- Your form for creating a new post -->
+  <form id="postForm">
+    <input type="text" id="captionInput" placeholder="Enter comment (optional...)">
+    <button type="submit">Submit</button>
+  </form>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics.js";
+    import { getDatabase, ref as databaseRef,set, update ,onValue,  get, child} from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+    import { getFirestore,doc, addDoc, collection, getDoc,serverTimestamp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes,uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-storage.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyDBnxfG2muMuI_hEP2VbUUdwI9YLJoW9NA",
+      authDomain: "mini-insta-5f0cc.firebaseapp.com",
+      projectId: "mini-insta-5f0cc",
+      storageBucket: "mini-insta-5f0cc.appspot.com",
+      messagingSenderId: "671504305978",
+      appId: "1:671504305978:web:317f6c4920dc4b9c5b4a03",
+      measurementId: "G-HZ32N4RLL5"
+    };
+  
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const database  = getDatabase(app);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+
+// Add event listener to the form to handle the form submission
+// document.getElementById("postForm").addEventListener("submit", handleFormSubmit);
+const postForm = document.getElementById("postForm");
+postForm.addEventListener("submit", handleFormSubmit);
+
+async function handleFormSubmit(event) {
+  event.preventDefault();
+
+  // Get the selected image file and caption from the form
+  const commentInput = document.getElementById("captionInput").value;
+
+  // Check if an image file was selected
+  if (!commentInput) {
+    alert("Please write any comment.");
+    return;
+  }
+
+  try {
+    // Create a firestore reference with the selected file's name
+    const commentRef = collection(db,"comments");
+    const username = await getUsernameOfCurrentUser();
+    const currUser = auth.currentUser;
+    const userId = currUser.uid;
+
+  addDoc(commentRef, {
+    // postId: postId,
+    comment: commentInput,
+    userId: userId,
+    username: username,
+    timestamp: serverTimestamp(),
+  }).then((docRef) => {
+      console.log('Comment added with ID: ', docRef.id);
+      return docRef.id; // Return the ID of the newly added comment
+    })
+    .catch((error) => {
+      console.error('Error adding comment: ', error);
+      return null; // Return null in case of an error
+    });
+
+
+    // Reset the form after successful upload
+    document.getElementById("postForm").reset();
+    console.log("uploading comment");
+    alert("Comment uploaded successfully!");
+  } catch (error) {
+    console.error("Error uploading comment:", error);
+    alert("An error occurred while uploading the comment. Please try again later.");
+  }
+}
+
+// Assuming you have already initialized Firebase and got the Realtime Database reference
+
+function getUsernameOfCurrentUser() {
+  // Get the currently logged-in user
+  const currentUser = auth.currentUser;
+
+  if (currentUser) {
+    // Get the UID (user ID) of the current user
+    const userId = currentUser.uid;
+
+    // Get a reference to the user data in the Realtime Database
+    const userRef = databaseRef(database,'users/' + currentUser.uid);
+
+    return get(child(userRef, "username"))
+      .then((snapshot) => {
+        const username = snapshot.val();
+        return username; // Return the username of the user (or null if not found)
+      })
+      .catch((error) => {
+        console.error('Error getting username: ', error);
+        return null; // Return null in case of an error
+      });
+  } else {
+    // If no user is logged in, return null
+    return Promise.resolve(null);
+  }
+}
+
+
+  </script>
+  </body>
+</html>
+
+

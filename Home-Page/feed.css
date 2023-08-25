@@ -1,0 +1,216 @@
+*{
+    margin: 0;
+    /* font-family: Arial, Helvetica, sans-serif; */
+    border: border-box;
+  }
+
+.navbar{
+    position: fixed;
+    background-color: black;
+    height: 60px;
+    width: 100%;
+    top: 0;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 2px solid #dfdfdf;
+}
+.nav-wrapper{
+    /* background-color: #000; */
+    color: white;
+      width: 100%;
+      max-width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+
+.brand-img{
+    /* background-color: aquamarine; */
+      height: 80%;
+      width: 150px;
+      margin-top: 5px;
+      margin-left: 5%;
+      /* padding-left: 5%; */
+  }
+
+  .search-box{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20%;
+    height: 30px;
+    background: #fafafa;
+    border: 1px solid #dfdfdf;
+    border-radius: 20px;
+    color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.search-box::placeholder{
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.nav-items{
+    /* background-color: bisque; */
+        color: white;
+        height: 80%;
+        position: relative;
+        display: flex;
+        margin-right: 5%;
+    }
+
+
+    .icons{
+        background-color: aqua;
+          height: 100%;
+          cursor: pointer;
+          margin: auto;
+          /* padding: 20px; */
+          /* padding-top: 10px; */
+          color: white;
+      }
+      
+      .icn{
+        padding-right: 5px;
+        color: white;
+        height: 25px;
+        width: 25px;
+        margin-top: 10px;
+      }
+      
+      /* .user-profile{
+          height: 30px;
+          width: 30px;
+          margin: 8px;
+          border-radius: 50%;
+          background-image: url(post-3.jpg);
+          background-size: cover;
+          
+      } */
+
+.top-info{
+  /* background-color: aquamarine; */
+  border-bottom: 1px solid rgb(187, 175, 175);
+  padding-bottom: 10px;
+}
+
+      .profile{
+        margin-top: 70px;
+        display: flex;
+      }
+
+      .profile-img{
+        /* background-color: green; */
+        height: 70px;
+        width: 70px;
+        /* overflow: hidden; */
+        margin-left: 5%;
+        margin-right: 5%;
+      }
+
+      .profile-img img{
+        height: 70px;
+        border-radius: 50%;
+      }
+
+      .profile-info{
+        /* background-color: blue; */
+        display: flex;
+      }
+
+      .profile-name{
+        /* background-color: blanchedalmond; */
+        display: flex;
+        font-size: 20px;
+        /* justify-content: center; */
+        align-items: center;
+        padding-left: 5px;
+      }
+
+      .profile-name img{
+        height: 24px;
+        width: 24px;
+        padding-left: 30px;
+      }
+
+      .profile-btn{
+        /* background-color: aquamarine; */
+        display: flex;
+        /* margin-top: 15px; */
+        height: 41px;
+        justify-content: center;
+        align-items: end;
+      }
+
+      .edit,.archive{
+        height: 30px;
+        padding-right: 15px;
+        justify-content: center;
+      }
+
+      .edit button,.archive button{
+        height: 30px;
+        border: none;
+        border-radius: 8px;
+        width: 120px;
+        font-size: 15px;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 600;
+      }
+
+.about{
+  margin-left: 5%;
+  margin-top: 15px;
+  line-height: 20px;
+}
+
+.add-new {
+  /* background-color: aquamarine; */
+  margin-left: 5%;
+  margin-top: 15px;
+  padding-left: 12px;
+}
+
+.add-new p{
+  padding-left: 10px;
+}
+
+.mid-info{
+  background-color: blanchedalmond;
+  display: flex;
+  justify-content: space-around;
+  height: 60px;
+  align-items: center;
+  border-bottom: 1px solid rgb(187, 175, 175);
+}
+
+.posts, .followers, .following{
+  height: 80%;
+  background-color: aquamarine;
+  width: 100px;
+  justify-content: center;
+  align-items: center;
+}
+
+.number{
+  background-color: blue;
+  justify-content: center;
+  padding-left: 30%;
+  margin-bottom: 5px;
+  font-size: 16px;
+  padding-top: 5px;
+}
+
+.letter{
+  background-color:beige;
+  justify-content: center;
+  align-items: center;
+  /* padding-left: 30%; */
+  padding-bottom: 2px;
+  margin: auto;
+}
+
